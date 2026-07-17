@@ -14,19 +14,19 @@
     position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     z-index: 1; background: linear-gradient(180deg, #131425 0%, #1F1F33 100%);
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    padding: 20px 20px 120px;
+    padding: 16px 20px 120px;
     display: flex; flex-direction: column; align-items: center;
   }
   .menu::-webkit-scrollbar { display: none; }
 
   .menu-logo {
-    width: 64px; height: 64px; background: #fff; border-radius: 50%;
+    width: 68px; height: 68px; background: #fff; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0;
   }
   .menu-logo svg { width: 36px; height: 36px; }
 
   .menu-name {
-    font-size: 20px; font-weight: 600; margin-bottom: 28px;
+    font-size: 22px; font-weight: 600; margin-bottom: 28px;
     display: flex; align-items: center; gap: 10px; flex-shrink: 0;
   }
   .menu-name svg { opacity: 0.35; }
@@ -37,21 +37,21 @@
   }
   .menu-tile {
     background: #282A3E; border-radius: 18px;
-    padding: 22px 16px; display: flex; flex-direction: column;
+    padding: 20px 16px; display: flex; flex-direction: column;
     align-items: center; gap: 10px; cursor: pointer; transition: transform 0.12s;
   }
   .menu-tile:active { transform: scale(0.97); }
   .menu-tile-icon { width: 42px; height: 42px; }
   .menu-tile-label { font-size: 15px; font-weight: 600; }
 
-  .menu-list { width: 100%; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+  .menu-list { width: 100%; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
   .menu-item {
     background: #282A3E; border-radius: 18px;
-    padding: 20px 18px; display: flex; align-items: center; gap: 14px;
+    padding: 14px; display: flex; align-items: center; gap: 14px;
     cursor: pointer; transition: transform 0.12s;
   }
   .menu-item:active { transform: scale(0.98); }
-  .menu-item-icon { width: 36px; height: 36px; flex-shrink: 0; }
+  .menu-item-icon { width: 32px; height: 32px; flex-shrink: 0; }
   .menu-item-label { font-size: 16px; font-weight: 600; flex: 1; }
   .menu-item-badge {
     background: #9c5cff; color: #fff; font-size: 11px; font-weight: 700;
@@ -92,7 +92,7 @@
   /* Drag handle at top of card — hands off to the notch dot as we pull down */
   .drag-handle {
     position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
-    width: 40px; height: 4px; border-radius: 3px;
+    width: 40px; height: 3px; border-radius: 3px;
     background: rgba(255,255,255,0.45); z-index: 20; pointer-events: none;
     opacity: calc(1 - var(--np));
   }
@@ -197,6 +197,7 @@
       inset 0 0 12px rgba(255,255,255,0.06),
       0 3px 8px rgba(0,0,0,0.22);
     display: flex; align-items: center; justify-content: center;
+    position: relative;
     cursor: pointer; color: rgba(255,255,255,0.85); flex-shrink: 0;
   }
   .h-actions { display: flex; gap: 6px; }
@@ -213,7 +214,7 @@
       inset 0 0 12px rgba(255,255,255,0.06),
       0 3px 8px rgba(0,0,0,0.22);
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; color: rgba(255,255,255,0.72);
+    color: #FFFFFF;
     transition: transform 0.12s;
   }
   .h-btn:active { transform: scale(0.94); }
@@ -223,11 +224,11 @@
     position: relative; z-index: 2;
     display: flex; justify-content: center; padding: 10px 0 20px;
   }
-  .donut-wrap { position: relative; width: 290px; height: 290px; }
+  .donut-wrap { position: relative; width: 300px; height: 300px; }
   .donut-svg { position: relative; z-index: 1; width: 100%; height: 100%;
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.28)); }
   .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-  .donut-total { font-size: 48px; font-weight: 600; letter-spacing: -0.5px; }
+  .donut-total { font-size: 52px; font-weight: 600; letter-spacing: -0.5px; }
   /* Dollar sign and cents: smaller and grey, main amount untouched */
   .donut-total .dt-sub { font-size: 18px; color: #8B8B96; }
   .donut-total .dt-sub:first-child { margin-right: 3px; }
@@ -311,13 +312,12 @@
       radial-gradient(60px 34px at 17% 104%, rgba(110,80,238,0.42) 0%, rgba(110,80,238,0.16) 45%, rgba(110,80,238,0) 75%);
   }
   .n-btn {
-    width: 74px; height: 58px; border-radius: 50%; border: none;
+    width: 76px; height: 58px; border-radius: 50%; border: none;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; position: relative; transition: transform 0.1s;
     background: transparent;
   }
   .n-btn:active { transform: scale(0.93); }
-  .n-btn svg { width: 24px; height: 24px; }
 
   /* Wallet — purple liquid-glass squircle, white icon */
   .n-btn.w {
@@ -345,3 +345,6 @@
     
     color: #1a1c30;
   }
+.r-u8s1d {
+    position: absolute;
+}
