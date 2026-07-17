@@ -14,30 +14,30 @@
     position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     z-index: 1; background: linear-gradient(180deg, #131425 0%, #1F1F33 100%);
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    padding: 50px 20px 120px;
+    padding: 20px 20px 120px;
     display: flex; flex-direction: column; align-items: center;
   }
   .menu::-webkit-scrollbar { display: none; }
 
   .menu-logo {
-    width: 100px; height: 100px; background: #fff; border-radius: 50%;
+    width: 64px; height: 64px; background: #fff; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0;
   }
-  .menu-logo svg { width: 55px; height: 55px; }
+  .menu-logo svg { width: 36px; height: 36px; }
 
   .menu-name {
-    font-size: 28px; font-weight: 700; margin-bottom: 28px;
+    font-size: 20px; font-weight: 600; margin-bottom: 28px;
     display: flex; align-items: center; gap: 10px; flex-shrink: 0;
   }
   .menu-name svg { opacity: 0.35; }
 
   .menu-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
     width: 100%; margin-bottom: 16px; flex-shrink: 0;
   }
   .menu-tile {
     background: #282A3E; border-radius: 18px;
-    padding: 26px 16px; display: flex; flex-direction: column;
+    padding: 22px 16px; display: flex; flex-direction: column;
     align-items: center; gap: 10px; cursor: pointer; transition: transform 0.12s;
   }
   .menu-tile:active { transform: scale(0.97); }
@@ -92,7 +92,7 @@
   /* Drag handle at top of card — hands off to the notch dot as we pull down */
   .drag-handle {
     position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
-    width: 40px; height: 5px; border-radius: 3px;
+    width: 40px; height: 4px; border-radius: 3px;
     background: rgba(255,255,255,0.45); z-index: 20; pointer-events: none;
     opacity: calc(1 - var(--np));
   }
@@ -183,7 +183,7 @@
   .header-top {
     position: relative; z-index: 2;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 20px 0;
+    padding: 18px 18px 0;
   }
   .h-logo {
     width: 40px; height: 40px; border-radius: 50%;
@@ -199,7 +199,7 @@
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; color: rgba(255,255,255,0.85); flex-shrink: 0;
   }
-  .h-actions { display: flex; gap: 12px; }
+  .h-actions { display: flex; gap: 6px; }
   .h-btn {
     width: 40px; height: 40px; border-radius: 50%;
     /* Liquid glass */
@@ -223,11 +223,11 @@
     position: relative; z-index: 2;
     display: flex; justify-content: center; padding: 10px 0 20px;
   }
-  .donut-wrap { position: relative; width: 270px; height: 270px; }
+  .donut-wrap { position: relative; width: 290px; height: 290px; }
   .donut-svg { position: relative; z-index: 1; width: 100%; height: 100%;
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.28)); }
   .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-  .donut-total { font-size: 40px; font-weight: 600; letter-spacing: -0.5px; }
+  .donut-total { font-size: 48px; font-weight: 600; letter-spacing: -0.5px; }
   /* Dollar sign and cents: smaller and grey, main amount untouched */
   .donut-total .dt-sub { font-size: 18px; color: #8B8B96; }
   .donut-total .dt-sub:first-child { margin-right: 3px; }
@@ -242,7 +242,7 @@
 
   .asset-row {
     display: flex; align-items: center;
-    padding: 18px 16px; margin: 0 16px 6px;
+    padding: 16px; margin: 0 16px 6px;
     /* Liquid glass panel */
     background: linear-gradient(180deg, rgba(44, 45, 65, 0.744) 0%, rgba(44, 45, 65, 0.883) 100%);
     -webkit-backdrop-filter: blur(18px) saturate(150%);
@@ -257,7 +257,7 @@
   .asset-row:active { transform: scale(0.99); background: linear-gradient(180deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.04) 100%); }
 
   /* Hex icons */
-  .a-icon { width: 46px; height: 46px; margin-right: 14px; flex-shrink: 0; position: relative; display: flex; align-items: center; justify-content: center; }
+  .a-icon { width: 46px; height: 46px; margin-right: 13px; flex-shrink: 0; position: relative; display: flex; align-items: center; justify-content: center; }
   .a-icon .hex { position: absolute; top: 0; left: 0; }
   .a-icon .inner { position: relative; z-index: 1; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
 
@@ -275,7 +275,7 @@
   .a-price { font-size: 13px; color: #A7A7A6; }
   .a-chg { font-size: 13px; font-weight: 500; color: #53BE06; margin-left: 8px; }
   .a-chg.neg { color: #7F7F7E; }
-  .a-vals { text-align: right; flex-shrink: 0; }
+  .a-vals { text-align: right; flex-shrink: 0; margin-right: 2px; }
   .a-amt { font-size: 15px; font-weight: 500; }
   .a-usd { font-size: 13px; color: #8B8B96; margin-top: 4px; }
 
@@ -311,7 +311,7 @@
       radial-gradient(60px 34px at 17% 104%, rgba(110,80,238,0.42) 0%, rgba(110,80,238,0.16) 45%, rgba(110,80,238,0) 75%);
   }
   .n-btn {
-    width: 68px; height: 58px; border-radius: 50%; border: none;
+    width: 74px; height: 58px; border-radius: 50%; border: none;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; position: relative; transition: transform 0.1s;
     background: transparent;
@@ -336,7 +336,7 @@
       inset 0 -3px 8px rgba(255,255,255,0.04),
       0 4px 12px rgba(0,0,0,0.3);
     color: rgba(255,255,255,0.72);
-    width: 72px;
+    width: 76px;
     border-radius: 999px;
   }
 
