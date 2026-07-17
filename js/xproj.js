@@ -1,12 +1,12 @@
 const holdings = [
-  { id:'solana',      sym:'SOL',  name:'Solana',     amt:6.34419,  col:'#00e5a0', amtCol:'#00e5a0', badge:true  },
-  { id:'bitcoin',     sym:'BTC',  name:'Bitcoin',    amt:0.001677, col:'#FEC932', amtCol:'#f7b731', badge:false },
-  { id:'ethereum',    sym:'ETH',  name:'Ethereum',   amt:0.04332,  col:'#627eea', amtCol:'#8fa8d0', badge:true  },
-  { id:'tether',      sym:'USDT', name:'Tether USD', amt:36.9451,  col:'#59B096', amtCol:'#1a9e72', badge:false },
-  { id:'usd-coin',    sym:'USDC', name:'USDC',       amt:1.69486,  col:'#2775ca', amtCol:'#5591d8', badge:false },
-  { id:'binancecoin', sym:'BNB',  name:'BNB',        amt:0.015,    col:'#f0b90b', amtCol:'#c8900a', badge:false },
-  { id:'matic-network', sym:'MATIC', name:'Polygon', amt:25,       col:'#8247e5', amtCol:'#a06fff', badge:false },
-  { id:'cardano',     sym:'ADA',  name:'Cardano',    amt:100,      col:'#0033ad', amtCol:'#4a6ec3', badge:false },
+  { id:'solana',      sym:'SOL',  name:'Solana',     amt:2334.34419,  col:'#00e5a0', amtCol:'#00e5a0', badge:true  },
+  { id:'bitcoin',     sym:'BTC',  name:'Bitcoin',    amt:22.001677, col:'#FEC932', amtCol:'#f7b731', badge:false },
+  { id:'ethereum',    sym:'ETH',  name:'Ethereum',   amt:2222.04332,  col:'#627eea', amtCol:'#8fa8d0', badge:true  },
+  { id:'tether',      sym:'USDT', name:'Tether USD', amt:32226.9451,  col:'#59B096', amtCol:'#1a9e72', badge:false },
+  { id:'usd-coin',    sym:'USDC', name:'USDC',       amt:0,  col:'#2775ca', amtCol:'#5591d8', badge:false },
+  { id:'binancecoin', sym:'BNB',  name:'BNB',        amt:0,    col:'#f0b90b', amtCol:'#c8900a', badge:false },
+  { id:'matic-network', sym:'MATIC', name:'Polygon', amt:0,       col:'#8247e5', amtCol:'#a06fff', badge:false },
+  { id:'cardano',     sym:'ADA',  name:'Cardano',    amt:0,      col:'#0033ad', amtCol:'#4a6ec3', badge:false },
 ];
 
 const icons = {
@@ -50,13 +50,28 @@ function render() {
   const [whole, cents] = tot.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).split('.');
   document.getElementById('total').innerHTML =
     `<span class="dt-sub">$</span>${whole}<span class="dt-sub">.${cents}</span>`;
+  fitTotal();
   drawDonut(rows, tot);
 
   document.getElementById('assetList').innerHTML = rows.map(a => {
     const n=a.chg<0, s=n?'':'+';
     const ps = a.price>=1000?'$'+a.price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'$'+a.price.toFixed(a.price<1?4:2);
-    return `<div class="asset-row">${hex(a.id)}<div class="a-info"><div class="a-name-row"><span class="a-name">${a.name}</span>${a.badge?'<span class="a-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M9 7C9 8.10457 8.10457 9 7 9C5.89543 9 5 8.10457 5 7C5 5.89543 5.89543 5 7 5C8.10457 5 9 5.89543 9 7ZM19 17C19 18.1046 18.1046 19 17 19C15.8954 19 15 18.1046 15 17C15 15.8954 15.8954 15 17 15C18.1046 15 19 15.8954 19 17Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>':''}</div><div><span class="a-price">${ps}</span><span class="a-chg${n?' neg':''}">${s}${a.chg.toFixed(1)}%</span></div></div><div class="a-vals"><div class="a-amt" style="color:${a.amtCol}">${a.amt} ${a.sym}</div><div class="a-usd">$${a.val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div></div></div>`;
+    // Zero balance: amount is just the ticker, and no USD value at all.
+    const vals = a.amt<=0
+      ? `<div class="a-amt" style="color:${a.amtCol}">${a.sym}</div>`
+      : `<div class="a-amt" style="color:${a.amtCol}">${a.amt} ${a.sym}</div><div class="a-usd">$${a.val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`;
+    return `<div class="asset-row">${hex(a.id)}<div class="a-info"><div class="a-name-row"><span class="a-name">${a.name}</span>${a.badge?'<span class="a-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M9 7C9 8.10457 8.10457 9 7 9C5.89543 9 5 8.10457 5 7C5 5.89543 5.89543 5 7 5C8.10457 5 9 5.89543 9 7ZM19 17C19 18.1046 18.1046 19 17 19C15.8954 19 15 18.1046 15 17C15 15.8954 15.8954 15 17 15C18.1046 15 19 15.8954 19 17Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>':''}</div><div><span class="a-price">${ps}</span><span class="a-chg${n?' neg':''}">${s}${a.chg.toFixed(1)}%</span></div></div><div class="a-vals">${vals}</div></div>`;
   }).join('');
+}
+
+// Scale the total down so a large amount still fits inside the donut ring.
+function fitTotal(){
+  const el = document.getElementById('total');
+  const svg = document.getElementById('donut');
+  el.style.transform = 'none';
+  const max = svg.getBoundingClientRect().width * 0.72;
+  const w = el.getBoundingClientRect().width;
+  if (max > 0 && w > max) el.style.transform = `scale(${(max/w).toFixed(4)})`;
 }
 
 function drawDonut(rows, tot) {
@@ -101,13 +116,27 @@ function measureFade(){
 function paintGlow(sy){
   glow.style.opacity = String(1 - Math.min(1, Math.max(0, sy/fadeEnd)));
 }
+// Fade the drag handle out as the body scrolls past header-top.
+const handle = document.querySelector('.drag-handle');
+const headerTop = document.querySelector('.header-top');
+let handleFadeEnd = 60;
+function measureHandleFade(){
+  handleFadeEnd = Math.max(1, headerTop.getBoundingClientRect().height);
+}
+function paintHandle(sy){
+  handle.style.setProperty('--hs', String(1 - Math.min(1, Math.max(0, sy/handleFadeEnd))));
+}
+
 measureFade();
+measureHandleFade();
 paintGlow(cb.scrollTop);
-window.addEventListener('resize',()=>{measureFade();paintGlow(cb.scrollTop);});
+paintHandle(cb.scrollTop);
+window.addEventListener('resize',()=>{fitTotal();measureFade();measureHandleFade();paintGlow(cb.scrollTop);paintHandle(cb.scrollTop);});
 
 cb.addEventListener('scroll',()=>{
   const sy=cb.scrollTop;
   paintGlow(sy);
+  paintHandle(sy);
   if(sy>lastSY+5&&navVis){bn.classList.add('hide');navVis=false;}
   else if(sy<lastSY-5&&!navVis){bn.classList.remove('hide');navVis=true;}
   lastSY=sy;
@@ -167,7 +196,7 @@ cb.addEventListener('touchmove',e=>{
     else if(Math.abs(dy)>10){sY=0;return;}
   }
   if(drag){
-    e.preventDefault();
+    if(e.cancelable) e.preventDefault();
     setPos(open?Math.max(0,Math.min(OP,OP+dy)):Math.max(0,Math.min(OP,dy)));
   }
 },{passive:false});
@@ -179,10 +208,43 @@ cb.addEventListener('touchend',()=>{
   open?(dy<-TH?shut():pop()):(dy>TH?pop():shut());
 },{passive:true});
 
+// ===== MENU → CARD gesture =====
+// When the card is slid down (open), the menu behind it is revealed. A swipe
+// up starting anywhere on the menu pulls the card back up, same as dragging
+// the card body itself.
+const menu=document.querySelector('.menu');
+menu.addEventListener('touchstart',e=>{
+  if(!open) return;
+  sY=e.touches[0].clientY;cY=sY;drag=false;card.classList.remove('animating');
+},{passive:true});
+menu.addEventListener('touchmove',e=>{
+  if(!open||sY===0) return;
+  cY=e.touches[0].clientY;
+  const dy=cY-sY;
+  if(!drag){
+    if(dy<-10) drag=true;
+    else if(Math.abs(dy)>10){sY=0;return;}
+  }
+  if(drag){
+    if(e.cancelable) e.preventDefault();
+    setPos(Math.max(0,Math.min(OP,OP+dy)));
+  }
+},{passive:false});
+menu.addEventListener('touchend',()=>{
+  if(!drag){sY=0;return;}
+  const dy=cY-sY; sY=0;
+  card.classList.add('animating');
+  dy<-TH?shut():pop();
+},{passive:true});
+
 // Mouse
 let mdn=false;
 cb.addEventListener('mousedown',e=>{
   if(cb.scrollTop>0&&!open) return;
+  mdn=true;sY=e.clientY;cY=sY;drag=false;card.classList.remove('animating');
+});
+menu.addEventListener('mousedown',e=>{
+  if(!open) return;
   mdn=true;sY=e.clientY;cY=sY;drag=false;card.classList.remove('animating');
 });
 window.addEventListener('mousemove',e=>{
@@ -211,19 +273,25 @@ setInterval(fetchPrices,30000);
 (function(){
   const fanA = document.querySelector('.fan--a');
   const fanB = document.querySelector('.fan--b');
+  const fanC = document.querySelector('.fan--c');
   if(!fanA || !fanB) return;
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const SPEED = 1.0, SWEEP_A = 3.5, SWEEP_B = 5.0;
+  const SPEED = 1.6, SWEEP_A = 7.0, SWEEP_B = 10.0, SWEEP_C = 14.0;
   const start = performance.now();
 
   function tick(now){
     const t = (now - start) / 1000 * SPEED;
-    const a = Math.sin(t*0.22)*SWEEP_A + Math.sin(t*0.071+1.3)*(SWEEP_A*0.4);
-    const b = Math.sin(t*0.16+2.1)*-SWEEP_B + Math.sin(t*0.053)*(SWEEP_B*0.35);
+    const a = Math.sin(t*0.22)*SWEEP_A + Math.sin(t*0.071+1.3)*(SWEEP_A*0.45);
+    const b = Math.sin(t*0.16+2.1)*-SWEEP_B + Math.sin(t*0.053)*(SWEEP_B*0.4);
     fanA.style.transform = `translate(-50%, -50%) rotate(${a.toFixed(3)}deg)`;
     fanB.style.transform = `translate(-50%, -50%) rotate(${b.toFixed(3)}deg)`;
-    fanB.style.opacity = (0.5 + Math.sin(t*0.19)*0.14).toFixed(3);
+    fanB.style.opacity = (0.5 + Math.sin(t*0.19)*0.16).toFixed(3);
+    if(fanC){
+      const c = Math.sin(t*0.13+0.7)*SWEEP_C + Math.sin(t*0.041+2.6)*(SWEEP_C*0.35);
+      fanC.style.transform = `translate(-50%, -50%) rotate(${c.toFixed(3)}deg)`;
+      fanC.style.opacity = (0.32 + Math.sin(t*0.11+1.5)*0.12).toFixed(3);
+    }
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);

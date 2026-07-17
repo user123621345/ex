@@ -21,19 +21,19 @@
 
   .menu-logo {
     width: 70px; height: 70px; background: #fff; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 10px; flex-shrink: 0;
   }
   .menu-logo svg { width: 36px; height: 36px; }
 
   .menu-name {
-    font-size: 22px; font-weight: 600; margin-bottom: 28px;
+    font-size: 22px; font-weight: 600; margin-bottom: 22px;
     display: flex; align-items: center; gap: 10px; flex-shrink: 0;
   }
   .menu-name svg { opacity: 0.35; }
 
   .menu-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
-    width: 100%; margin-bottom: 16px; flex-shrink: 0;
+    width: 100%; margin-bottom: 18px; flex-shrink: 0;
   }
   .menu-tile {
     background: #282A3E; border-radius: 18px;
@@ -97,7 +97,9 @@
     position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
     width: 40px; height: 3px; border-radius: 3px;
     background: rgba(255,255,255,0.45); z-index: 20; pointer-events: none;
-    opacity: calc(1 - var(--np));
+    /* Fades on drag (--np) AND once the body scrolls past header-top (--hs). */
+    opacity: calc((1 - var(--np)) * var(--hs, 1));
+    transition: opacity 0.15s ease;
   }
   /* Purple aura glowing around the rounded top corners */
   .card::before {
@@ -193,32 +195,49 @@
     filter: blur(18px);
     background: conic-gradient(from 0deg at 50% 50%,
       transparent                 0deg,
-      transparent                88deg,
+      transparent                86deg,
       /* along the top edge: bright */
-      rgba(124,  92, 252, 0.55)  90deg,
-      rgba(118,  86, 250, 0.55)  94deg,
+      rgba(124,  92, 252, 0.55)  88deg,
+      rgba(118,  86, 250, 0.55)  92deg,
       /* thin dark streak just under the top edge */
-      rgba( 22,  16,  54, 0.42)  97deg,
+      rgba( 22,  16,  54, 0.42)  95deg,
       /* WIDE bright beam sweeping across the upper area */
-      rgba(126,  94, 255, 0.50) 101deg,
-      rgba(120,  88, 250, 0.48) 108deg,
+      rgba(126,  94, 255, 0.50)  98deg,
+      rgba(120,  88, 250, 0.48) 103deg,
       /* thin dark streak */
-      rgba( 20,  15,  52, 0.45) 111.5deg,
+      rgba( 20,  15,  52, 0.45) 106deg,
+      /* extra slim bright ray */
+      rgba(122,  90, 252, 0.46) 109deg,
+      rgba(114,  84, 247, 0.42) 112deg,
+      /* thin dark streak */
+      rgba( 20,  15,  52, 0.40) 114.5deg,
       /* medium bright beam */
-      rgba(110,  80, 244, 0.42) 115deg,
-      rgba(100,  72, 235, 0.36) 120deg,
+      rgba(110,  80, 244, 0.42) 117deg,
+      rgba(100,  72, 235, 0.36) 121deg,
+      /* extra dark sliver before the wedge */
+      rgba( 19,  14,  50, 0.44) 123.5deg,
+      /* narrow bright ray riding the wedge edge */
+      rgba(108,  78, 240, 0.34) 125deg,
       /* THE BIG DARK WEDGE — wide diagonal shadow toward the middle-left */
-      rgba( 18,  14,  48, 0.50) 126deg,
-      rgba( 16,  12,  44, 0.55) 138deg,
+      rgba( 18,  14,  48, 0.50) 128deg,
+      rgba( 16,  12,  44, 0.55) 137deg,
       /* faint recovery beam inside the dark zone */
-      rgba( 90,  64, 220, 0.20) 145deg,
+      rgba( 92,  66, 222, 0.24) 142deg,
+      /* dark streak splitting the recovery zone into two rays */
+      rgba( 18,  14,  46, 0.42) 146deg,
+      rgba( 88,  62, 218, 0.22) 149deg,
       /* long soft haze falling down the left side */
-      rgba( 70,  50, 190, 0.16) 154deg,
+      rgba( 70,  50, 190, 0.16) 155deg,
+      /* extra ray in the lower fan */
+      rgba( 82,  60, 206, 0.20) 160deg,
       rgba( 30,  22,  80, 0.28) 164deg,
+      /* another slim ray near the left edge */
+      rgba( 84,  62, 208, 0.20) 168deg,
+      rgba( 28,  20,  72, 0.26) 172deg,
       /* near the left edge: lifted slightly by the aura */
-      rgba( 80,  60, 205, 0.18) 173deg,
-      rgba( 80,  60, 205, 0.14) 179deg,
-      transparent               181deg,
+      rgba( 82,  62, 208, 0.18) 176deg,
+      rgba( 80,  60, 205, 0.14) 180deg,
+      transparent               182deg,
       transparent               360deg);
     /* beams stay strong then dissolve into the dark lower-right */
     -webkit-mask-image: radial-gradient(50% 50% at 50% 50%,
@@ -236,6 +255,8 @@
   }
   .fan--a { will-change: transform, opacity; }
   .fan--b { opacity: 0.5; filter: blur(26px); will-change: transform, opacity; }
+  /* third copy — softer + wider sweep, adds crossing rays and shimmer */
+  .fan--c { opacity: 0.32; filter: blur(36px); will-change: transform, opacity; }
 
   /* extra bloom right at the corner so the light source feels hot */
   .card-glow::before {
@@ -253,8 +274,8 @@
     border-radius: 26px 26px 0 0;
     pointer-events: none;
     box-shadow:
-      inset 0 0 42px 6px rgba(168, 140, 255, 0.28),
-      inset 0 0 14px 2px rgba(190, 165, 255, 0.22);
+      inset 0 0 42px 6px rgba(218, 206, 255, 0.466),
+      inset 0 0 14px 2px rgba(193, 170, 250, 0.463);
     /* Confine the aura to the higher half — it fades out (revealing flat
        #202034) before it reaches the assets-zone. */
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 22%, transparent 50%);
