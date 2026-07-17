@@ -1,8 +1,8 @@
 const holdings = [
   { id:'solana',      sym:'SOL',  name:'Solana',     amt:6.34419,  col:'#00e5a0', amtCol:'#00e5a0', badge:true  },
-  { id:'bitcoin',     sym:'BTC',  name:'Bitcoin',    amt:0.001677, col:'#f7931a', amtCol:'#f7b731', badge:false },
+  { id:'bitcoin',     sym:'BTC',  name:'Bitcoin',    amt:0.001677, col:'#FEC932', amtCol:'#f7b731', badge:false },
   { id:'ethereum',    sym:'ETH',  name:'Ethereum',   amt:0.04332,  col:'#627eea', amtCol:'#8fa8d0', badge:true  },
-  { id:'tether',      sym:'USDT', name:'Tether USD', amt:36.9451,  col:'#26a17b', amtCol:'#1a9e72', badge:false },
+  { id:'tether',      sym:'USDT', name:'Tether USD', amt:36.9451,  col:'#59B096', amtCol:'#1a9e72', badge:false },
   { id:'usd-coin',    sym:'USDC', name:'USDC',       amt:1.69486,  col:'#2775ca', amtCol:'#5591d8', badge:false },
   { id:'binancecoin', sym:'BNB',  name:'BNB',        amt:0.015,    col:'#f0b90b', amtCol:'#c8900a', badge:false },
   { id:'matic-network', sym:'MATIC', name:'Polygon', amt:25,       col:'#8247e5', amtCol:'#a06fff', badge:false },
@@ -201,6 +201,33 @@ function shut(){open=false;setPos(0);}
 
 fetchPrices();
 setInterval(fetchPrices,30000);
+
+/* ===== God-ray fan motion (ported from ray.html) =====
+   The two fan copies slowly sweep around the top-left corner, out of phase, so
+   the beams visibly drift, cross and breathe. Layered sines keep it from looking
+   like a fixed loop. The translate(-50%,-50%) is kept in the transform so the
+   conic origin stays pinned to the corner while rotating.
+     SPEED   — overall pace        SWEEP_A/B — rotation range (deg) each way   */
+(function(){
+  const fanA = document.querySelector('.fan--a');
+  const fanB = document.querySelector('.fan--b');
+  if(!fanA || !fanB) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const SPEED = 1.0, SWEEP_A = 3.5, SWEEP_B = 5.0;
+  const start = performance.now();
+
+  function tick(now){
+    const t = (now - start) / 1000 * SPEED;
+    const a = Math.sin(t*0.22)*SWEEP_A + Math.sin(t*0.071+1.3)*(SWEEP_A*0.4);
+    const b = Math.sin(t*0.16+2.1)*-SWEEP_B + Math.sin(t*0.053)*(SWEEP_B*0.35);
+    fanA.style.transform = `translate(-50%, -50%) rotate(${a.toFixed(3)}deg)`;
+    fanB.style.transform = `translate(-50%, -50%) rotate(${b.toFixed(3)}deg)`;
+    fanB.style.opacity = (0.5 + Math.sin(t*0.19)*0.14).toFixed(3);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 
 // Register service worker for PWA (skipped on localhost so dev reloads aren't cached)
 const isLocalDev = ['localhost', '127.0.0.1'].includes(location.hostname);

@@ -12,7 +12,7 @@
   /* ========== HIDDEN MENU ========== */
   .menu {
     position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 1; background: linear-gradient(180deg, #131425 0%, #1F1F33 100%);
+    z-index: 1; background: linear-gradient(180deg, #131425 0%, #222439 50%, #131425 100%);
     overflow-y: auto; -webkit-overflow-scrolling: touch;
     padding: 14px 20px 120px;
     display: flex; flex-direction: column; align-items: center;
@@ -147,162 +147,132 @@
     background: transparent;
     border-radius: 30px 30px 0 0;
     /* Bright lilac rim hugging the rounded top corners */
-    box-shadow: inset 0 2px 0 rgba(234,220,255,0.9);
+    box-shadow: inset 0 1px 0 rgba(231, 218, 250, 0.272);
   }
   .card-body::-webkit-scrollbar { display: none; }
 
   .card-glow {
-    /* Confine the ray blend to this layer and clip beams to the card */
+    /* Confine the fan + aura to this layer and clip them to the card */
     isolation: isolate;
     overflow: hidden;
-    /* The top half of the card is a BRIGHT violet→blue fill (not dark!) that
-       fades to flat #202034 at the asset rows. A SMALL lighter-lavender rim
-       hugs the top edge + corners + a thin strip down the upper sides — that
-       is the "aura around the border", kept thin, not big side blobs. */
-    background:
-      /* thin lighter rim along the very TOP edge */
-      radial-gradient(90% 13% at 50% 0%,
-        rgba(224, 212, 255, 0.62) 0%,
-        rgba(170, 140, 250, 0.26) 46%,
-        transparent 82%),
-      /* small lavender bloom in the top-LEFT corner */
-      radial-gradient(24% 20% at 1% 2%,
-        rgba(212, 198, 255, 0.55) 0%,
-        rgba(168, 138, 250, 0.18) 52%,
-        transparent 78%),
-      /* small lavender bloom in the top-RIGHT corner */
-      radial-gradient(24% 20% at 99% 2%,
-        rgba(212, 198, 255, 0.55) 0%,
-        rgba(168, 138, 250, 0.18) 52%,
-        transparent 78%),
-      /* THIN lighter rim down the upper-LEFT edge */
-      radial-gradient(7% 30% at 0% 12%,
-        rgba(206, 190, 255, 0.5) 0%,
-        transparent 76%),
-      /* THIN lighter rim down the upper-RIGHT edge */
-      radial-gradient(7% 30% at 100% 12%,
-        rgba(206, 190, 255, 0.5) 0%,
-        transparent 76%),
-      /* gentle deeper pool behind the donut so the ring reads (still blue) */
-      radial-gradient(60% 42% at 50% 33%,
-        rgba(38, 28, 104, 0.30) 0%,
-        transparent 74%),
-      /* BRIGHT violet → blue → dark vertical fill for the whole top zone */
-      linear-gradient(180deg,
-        #7154e8 0%,
-        #6248dd 11%,
-        #5541d0 22%,
-        #4838c1 33%,
-        #3c31a4 44%,
-        #2f2778 52%,
-        #262149 60%,
-        #202034 70%,
-        #202034 100%);
+    /* Base field (ported from ray.html): bright violet at the very top falling
+       into the flat card colour #202034 by the time it reaches the asset rows.
+       The fan layers paint the beams + dark shafts straight over this. */
+    background: linear-gradient(178deg,
+      #5230df 0%,
+      #4b2cd6 9%,
+      #3d28b0 19%,
+      #2f2478 30%,
+      #262147 41%,
+      #221d3c 50%,
+      #202034 58%,
+      #202034 100%);
   }
 
-  /* ===== Volumetric light rays =====
-     Each ray is its own conic-gradient shaft anchored at the top-left corner
-     (transform-origin 0 0). Heavy blur turns the bands into hazy shafts; the
-     radial mask makes them brightest at the source and dissolve with distance;
-     screen blend adds them as coloured light over the dark base. Every layer
-     drifts on its own slow, desynced rotate/scale loop so the light appears to
-     move at random. Colours (violet / blue / lilac) are what tint the card. */
-  .ray {
+  /* ===== Volumetric god-ray fan (ported from ray.html) =====
+     Two stacked copies of one hand-authored conic-gradient fan, centred on the
+     card's TOP-LEFT corner. They paint bright beams AND dark shafts straight
+     over the base field with NORMAL blending (not screen), so the light reads
+     as irregular, hand-placed volumetric rays. JS sweeps the two copies out of
+     phase (see js/xproj.js) so the beams drift, cross and breathe.
+
+     Conic angle map (centre = top-left corner, 0° = up, CW):
+       90°  = along the top edge     180° = along the left edge
+
+     The fan is a square (aspect-ratio 1/1) sized from the card WIDTH and pulled
+     back by translate(-50%,-50%) so its centre — and thus the conic origin —
+     sits exactly on the top-left corner regardless of card height. */
+  .fan {
     position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    transform-origin: 0 0;
+    width: 320%;
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    z-index: 2;
     pointer-events: none;
-    mix-blend-mode: screen;
-    will-change: transform;
-    -webkit-mask-image: radial-gradient(104% 44% at 0 0,
-        #000 0%, rgba(0,0,0,0.5) 40%, transparent 82%);
-            mask-image: radial-gradient(104% 44% at 0 0,
-        #000 0%, rgba(0,0,0,0.5) 40%, transparent 82%);
+    filter: blur(18px);
+    background: conic-gradient(from 0deg at 50% 50%,
+      transparent                 0deg,
+      transparent                88deg,
+      /* along the top edge: bright */
+      rgba(124,  92, 252, 0.55)  90deg,
+      rgba(118,  86, 250, 0.55)  94deg,
+      /* thin dark streak just under the top edge */
+      rgba( 22,  16,  54, 0.42)  97deg,
+      /* WIDE bright beam sweeping across the upper area */
+      rgba(126,  94, 255, 0.50) 101deg,
+      rgba(120,  88, 250, 0.48) 108deg,
+      /* thin dark streak */
+      rgba( 20,  15,  52, 0.45) 111.5deg,
+      /* medium bright beam */
+      rgba(110,  80, 244, 0.42) 115deg,
+      rgba(100,  72, 235, 0.36) 120deg,
+      /* THE BIG DARK WEDGE — wide diagonal shadow toward the middle-left */
+      rgba( 18,  14,  48, 0.50) 126deg,
+      rgba( 16,  12,  44, 0.55) 138deg,
+      /* faint recovery beam inside the dark zone */
+      rgba( 90,  64, 220, 0.20) 145deg,
+      /* long soft haze falling down the left side */
+      rgba( 70,  50, 190, 0.16) 154deg,
+      rgba( 30,  22,  80, 0.28) 164deg,
+      /* near the left edge: lifted slightly by the aura */
+      rgba( 80,  60, 205, 0.18) 173deg,
+      rgba( 80,  60, 205, 0.14) 179deg,
+      transparent               181deg,
+      transparent               360deg);
+    /* beams stay strong then dissolve into the dark lower-right */
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%,
+      rgba(0,0,0,1)    0%,
+      rgba(0,0,0,0.95) 18%,
+      rgba(0,0,0,0.70) 30%,
+      rgba(0,0,0,0.30) 42%,
+      rgba(0,0,0,0)    52%);
+            mask-image: radial-gradient(50% 50% at 50% 50%,
+      rgba(0,0,0,1)    0%,
+      rgba(0,0,0,0.95) 18%,
+      rgba(0,0,0,0.70) 30%,
+      rgba(0,0,0,0.30) 42%,
+      rgba(0,0,0,0)    52%);
+  }
+  .fan--a { will-change: transform, opacity; }
+  .fan--b { opacity: 0.5; filter: blur(26px); will-change: transform, opacity; }
+
+  /* extra bloom right at the corner so the light source feels hot */
+  .card-glow::before {
+    content: ""; position: absolute; inset: -10%;
+    z-index: 3; pointer-events: none;
+    background: radial-gradient(55% 45% at 4% 2%,
+      rgba(150, 120, 255, 0.40) 0%,
+      rgba(115,  84, 248, 0.16) 34%,
+      rgba( 90,  60, 230, 0.0)  60%);
   }
 
-  /* Wide + long bright-purple beam — the main body of colour (#6f42e8) */
-  .ray1 {
-    filter: blur(16px);
-    background: conic-gradient(from 86deg at 0 0,
-      transparent            0deg,
-      rgba(130, 88,250, 0)   3deg,
-      rgba(150,108,255,0.26) 15deg,
-      rgba(130, 88,250, 0)   30deg,
-      transparent            360deg);
-    -webkit-mask-image: radial-gradient(112% 50% at 0 0,
-        #000 0%, rgba(0,0,0,0.5) 44%, transparent 90%);
-            mask-image: radial-gradient(112% 50% at 0 0,
-        #000 0%, rgba(0,0,0,0.5) 44%, transparent 90%);
-    animation: ray-a 30s ease-in-out infinite alternate;
+  /* ===== Edge aura hugging the card's top + side borders ===== */
+  .aura {
+    position: absolute; inset: 0; z-index: 4;
+    border-radius: 26px 26px 0 0;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 42px 6px rgba(168, 140, 255, 0.28),
+      inset 0 0 14px 2px rgba(190, 165, 255, 0.22);
   }
-  /* Thin lighter-purple beam (#966cfa) + a darker one (#5834be), shorter */
-  .ray2 {
-    filter: blur(9px);
-    background: conic-gradient(from 88deg at 0 0,
-      transparent            0deg,
-      rgba(150,108,252, 0)   24deg,
-      rgba(168,128,255,0.32) 29deg,
-      rgba(150,108,252, 0)   34deg,
-      transparent            45deg,
-      rgba( 92, 56,204, 0)   51deg,
-      rgba(120, 84,236,0.22) 57deg,
-      rgba( 92, 56,204, 0)   64deg,
-      transparent            360deg);
-    animation: ray-b 40s ease-in-out infinite alternate;
-  }
-  /* Big soft WIDE mid-purple wash (#5f38d4), the longest reach */
-  .ray3 {
-    filter: blur(26px);
-    background: conic-gradient(from 82deg at 0 0,
-      transparent            0deg,
-      rgba(118, 76,238, 0)   34deg,
-      rgba(128, 84,244,0.16) 60deg,
-      rgba(118, 76,238, 0)   88deg,
-      transparent            360deg);
-    -webkit-mask-image: radial-gradient(128% 56% at 0 0,
-        #000 0%, rgba(0,0,0,0.55) 46%, transparent 96%);
-            mask-image: radial-gradient(128% 56% at 0 0,
-        #000 0%, rgba(0,0,0,0.55) 46%, transparent 96%);
-    animation: ray-c 46s ease-in-out infinite alternate;
-  }
-  /* Thin bright lighter-purple highlight near the top edge (#a580ff) */
-  .ray4 {
-    filter: blur(6px);
-    background: conic-gradient(from 88deg at 0 0,
-      transparent            0deg,
-      rgba(184,152,255, 0)   4deg,
-      rgba(198,170,255,0.44) 9deg,
-      rgba(184,152,255, 0)   15deg,
-      transparent            360deg);
-    animation: ray-d 34s ease-in-out infinite alternate;
-  }
-
-  @keyframes ray-a {
-    0%   { transform: rotate(-5deg) scale(1.02); }
-    100% { transform: rotate( 6deg) scale(1.12); }
-  }
-  @keyframes ray-b {
-    0%   { transform: rotate( 5deg) scale(1.08); }
-    100% { transform: rotate(-7deg) scale(1.00); }
-  }
-  @keyframes ray-c {
-    0%   { transform: rotate(-3deg) scale(1.10); }
-    100% { transform: rotate( 5deg) scale(1.00); }
-  }
-  @keyframes ray-d {
-    0%   { transform: rotate( 3deg) scale(1.00); }
-    100% { transform: rotate(-4deg) scale(1.07); }
+  .aura::before {
+    content: ""; position: absolute; inset: 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(90deg,  rgba(172, 142, 255, 0.30) 0%, rgba(172,142,255,0) 9%),
+      linear-gradient(180deg, rgba(172, 142, 255, 0.26) 0%, rgba(172,142,255,0) 9%),
+      linear-gradient(270deg, rgba(150, 122, 240, 0.16) 0%, rgba(150,122,240,0) 7%),
+      linear-gradient(0deg,   rgba(150, 122, 240, 0.12) 0%, rgba(150,122,240,0) 6%);
+    filter: blur(8px);
   }
   @media (prefers-reduced-motion: reduce) {
-    .ray { animation: none !important; }
+    .fan { transform: translate(-50%, -50%) !important; }
   }
 
   /* Header purple zone — the ONLY place with light + aura */
   .header {
     position: relative; width: 100%; overflow: hidden;
-  }
-  .header-waves {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
   }
 
   .header-top {
@@ -351,7 +321,7 @@
   }
   .donut-wrap { position: relative; width: 300px; height: 300px; }
   .donut-svg { position: relative; z-index: 1; width: 100%; height: 100%;
-    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.28)); }
+    filter: drop-shadow(0 0 1px rgba(255,255,255,0.55)) drop-shadow(0 2px 3px rgba(0,0,0,0.10)); }
   .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
   .donut-total { font-size: 54px; font-weight: 600; letter-spacing: -0.5px; }
   /* Dollar sign and cents: smaller and grey, main amount untouched */
@@ -404,7 +374,7 @@
   .a-badge svg { width: 11px; height: 11px; display: block; }
   .a-badge svg path { stroke: #FEFEFE; fill: #FEFEFE; }
   .a-price { font-size: 13px; color: #A7A7A6; }
-  .a-chg { font-size: 13px; font-weight: 500; color: #53BE06; margin-left: 8px; }
+  .a-chg { font-size: 13px; font-weight: 500; color: #62ED00; margin-left: 8px; }
   .a-chg.neg { color: #7F7F7E; }
   .a-vals { text-align: right; flex-shrink: 0; margin-right: 2px; }
   .a-amt { font-size: 15px; font-weight: 500; }
