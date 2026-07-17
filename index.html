@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>X Proj Wallet</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-title" content="X Proj">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#131425">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/xproj.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ===== HIDDEN MENU ===== -->
+  <div class="menu">
+    <div class="menu-logo">
+      <svg width="24" height="24" fill="none" viewBox="0 0 24 24" data-testid="exodusmovement.exodus:id/home-screen" style="margin-bottom: 0px; opacity: 1; transition: 0.2s;"><path fill="url(#a30-a)" d="M23.856 6.701L13.636 0v3.747l6.556 4.26-.771 2.44h-5.785v3.105h5.785l.771 2.44-6.556 4.261V24l10.22-6.68-1.671-5.31 1.671-5.309z"></path><path fill="url(#a30-b)" d="M4.744 13.552h5.763v-3.104H4.722l-.75-2.44 6.535-4.261V0L.287 6.701l1.671 5.31-1.67 5.31L10.527 24v-3.747l-6.556-4.26.772-2.44z"></path><mask id="a30-c" width="24" height="24" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type: alpha;"><path fill="url(#a30-d)" d="M23.856 6.701L13.636 0v3.747l6.556 4.26-.771 2.44h-5.785v3.105h5.785l.771 2.44-6.556 4.261V24l10.22-6.68-1.671-5.31 1.671-5.309z"></path><path fill="url(#a30-e)" d="M4.744 13.552h5.763v-3.104H4.722l-.75-2.44 6.535-4.261V0L.287 6.701l1.671 5.31-1.67 5.31L10.527 24v-3.747l-6.556-4.26.772-2.44z"></path></mask><g mask="url(#a30-c)"><path fill="url(#a30-f)" d="M0.3 0H23.7V24H0.3z"></path></g><defs><linearGradient id="a30-a" x1="20.55" x2="13.704" y1="25.65" y2="-2.636" gradientUnits="userSpaceOnUse"><stop stop-color="#0B46F9"></stop><stop offset="1" stop-color="#BBFBE0"></stop></linearGradient><linearGradient id="a30-b" x1="20.55" x2="13.704" y1="25.65" y2="-2.636" gradientUnits="userSpaceOnUse"><stop stop-color="#0B46F9"></stop><stop offset="1" stop-color="#BBFBE0"></stop></linearGradient><linearGradient id="a30-d" x1="20.55" x2="13.704" y1="25.65" y2="-2.636" gradientUnits="userSpaceOnUse"><stop stop-color="#0B46F9"></stop><stop offset="1" stop-color="#BBFBE0"></stop></linearGradient><linearGradient id="a30-e" x1="20.55" x2="13.704" y1="25.65" y2="-2.636" gradientUnits="userSpaceOnUse"><stop stop-color="#0B46F9"></stop><stop offset="1" stop-color="#BBFBE0"></stop></linearGradient><linearGradient id="a30-f" x1="1.8" x2="13.65" y1="5.4" y2="14.25" gradientUnits="userSpaceOnUse"><stop offset="0.12" stop-color="#8952FF" stop-opacity="0.87"></stop><stop offset="1" stop-color="#DABDFF" stop-opacity="0"></stop></linearGradient></defs></svg>
+    </div>
+    <div class="menu-name">
+      Exodus
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-tile">
+        <div class="menu-tile-icon">
+          <svg width="38" height="38" fill="none" viewBox="0 0 34 38" size="38" color="#FFF" opacity="1" data-testid="exodusmovement.exodus:id/ManageAssets-icon"><path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M1.96 29.935A3.921 3.921 0 0 1 0 26.539V11.46c0-1.401.748-2.696 1.96-3.396L6.82 5.26 6.818 30.1c0 1.575.81 3.035 2.136 3.87l.15.09-7.144-4.125Z" fill="url(#a-a45)"></path><path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M15.02.525c1.212-.7 2.707-.7 3.92 0l13.058 7.54a3.921 3.921 0 0 1 1.96 3.396v5.61L12.447 4.65a4.571 4.571 0 0 0-4.418-.084l-.153.084L15.019.525Z" fill="url(#b-a45)"></path><path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M33.959 26.54c0 1.401-.748 2.696-1.96 3.396L18.94 37.475c-1.213.7-2.708.7-3.921 0L10.16 34.67l21.513-12.42a4.572 4.572 0 0 0 2.283-3.785l.003-.174v8.25Z" fill="url(#c-a45)"></path><path d="M18.94 37.475c-1.213.7-2.708.7-3.921 0L1.96 29.935a3.921 3.921 0 0 1-1.96-3.395v-5.61l21.512 12.42a4.571 4.571 0 0 0 4.418.085l.153-.085-7.144 4.125Z" fill="url(#d-a45)"></path><path d="M31.999 8.064a3.921 3.921 0 0 1 1.96 3.396v15.078c0 1.401-.748 2.696-1.96 3.396l-4.86 2.805.001-24.84c0-1.575-.81-3.035-2.136-3.87l-.15-.09L32 8.064Z" fill="url(#e-a45)"></path><path d="M0 11.46c0-1.4.748-2.695 1.961-3.396L15.019.525c1.213-.7 2.708-.7 3.921 0L23.8 3.33 2.286 15.75a4.571 4.571 0 0 0-2.282 3.785L0 19.709V11.46Z" fill="url(#f-a45)"></path><defs><linearGradient id="a-a45" x1="13.762" y1="20.051" x2="-2.542" y2="14.947" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.5"></stop></linearGradient><linearGradient id="b-a45" x1="47.302" y1="8.767" x2="31.709" y2="-14.825" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.5"></stop></linearGradient><linearGradient id="c-a45" x1="46.133" y1="28.413" x2="26.872" y2="5.385" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.5"></stop></linearGradient><linearGradient id="d-a45" x1="13.042" y1="12.394" x2="-2.601" y2="36.298" gradientUnits="userSpaceOnUse"><stop stop-color="#5C26FF"></stop><stop offset="1" stop-color="#8C66FF"></stop></linearGradient><linearGradient id="e-a45" x1="38.511" y1="18.339" x2="21.957" y2="13.106" gradientUnits="userSpaceOnUse"><stop stop-color="#556FF2"></stop><stop offset="1" stop-color="#00BFFF"></stop></linearGradient><linearGradient id="f-a45" x1="11.899" y1="29.564" x2="31.264" y2="6.182" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9F1A"></stop><stop offset="1" stop-color="#FC3"></stop></linearGradient></defs></svg>
+        </div>
+        <span class="menu-tile-label">Assets</span>
+      </div>
+      <div class="menu-tile">
+        <div class="menu-tile-icon">
+          <svg width="38" height="38" fill="none" viewBox="0 0 38 38" data-testid="exodusmovement.exodus:id/explore-web3-icon"><path d="M0 3a3 3 0 0 1 3-3h32a3 3 0 0 1 3 3v29a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V3Z" fill="url(#a-a42)" fill-opacity="0.2"></path><path d="M33 18H10v16h23V18Z" fill="url(#b-a42)"></path><path d="M30 15H7v16h23V15Z" fill="url(#c-a42)"></path><path d="M27 12H4v16h23V12Z" fill="url(#d-a42)"></path><path d="M0 3a3 3 0 0 1 3-3h32a3 3 0 0 1 3 3v5H0V3Z" fill="url(#e-a42)" fill-opacity="0.5"></path><circle cx="4" cy="4" r="1" fill="#fff"></circle><circle cx="4" cy="4" r="1" fill="#fff"></circle><circle cx="4" cy="4" r="1" fill="#fff"></circle><circle cx="8" cy="4" r="1" fill="#fff"></circle><circle cx="8" cy="4" r="1" fill="#fff"></circle><circle cx="8" cy="4" r="1" fill="#fff"></circle><defs><linearGradient id="a-a42" x1="45.87" y1="19" x2="19" y2="-7.87" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.5"></stop></linearGradient><linearGradient id="b-a42" x1="33" y1="31.673" x2="16.049" y2="14.393" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9F19"></stop><stop offset="1" stop-color="#FC3"></stop></linearGradient><linearGradient id="c-a42" x1="30" y1="28.673" x2="13.049" y2="11.393" gradientUnits="userSpaceOnUse"><stop stop-color="#556FF2"></stop><stop offset="1" stop-color="#00BFFF"></stop></linearGradient><linearGradient id="d-a42" x1="34.328" y1="29.633" x2="12.154" y2="6.508" gradientUnits="userSpaceOnUse"><stop stop-color="#5C26FF"></stop><stop offset="1" stop-color="#8C66FF"></stop></linearGradient><linearGradient id="e-a42" x1="45.87" y1="4" x2="43.589" y2="-6.834" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.5"></stop></linearGradient></defs></svg>
+        </div>
+        <span class="menu-tile-label">Web3</span>
+      </div>
+      <div class="menu-tile">
+        <div class="menu-tile-icon">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" size="50" color="#FFF" opacity="1" data-testid="exodusmovement.exodus:id/staking-icon"><mask id="a49_0" maskUnits="userSpaceOnUse" x="6" y="4" width="38" height="41" style="mask-type: alpha;"><path fill-rule="evenodd" clip-rule="evenodd" d="M27.06 5.12l13.86 8.002a4.162 4.162 0 0 1 2.081 3.604v16.003c0 1.487-.793 2.86-2.08 3.604l-13.86 8.002a4.162 4.162 0 0 1-4.162 0L9.04 36.333a4.162 4.162 0 0 1-2.08-3.604V16.726c0-1.487.793-2.86 2.08-3.604L22.9 5.12a4.162 4.162 0 0 1 4.162 0zm-.559 5.28l9.998 5.755A2.99 2.99 0 0 1 38 18.746v11.508a2.99 2.99 0 0 1-1.501 2.591L26.5 38.6a3.01 3.01 0 0 1-3.002 0L13.5 32.845A2.99 2.99 0 0 1 12 30.254V18.746a2.99 2.99 0 0 1 1.501-2.591L23.5 10.4a3.01 3.01 0 0 1 3.002 0z" fill="#fff"></path></mask><g mask="url(#a49_0)"><path fill="#D9D9D9" d="M49.527 27.968l-9.618 16.66-41.898-24.19 9.618-16.66z"></path><path transform="rotate(120 49.527 27.969)" fill="url(#a49_1)" d="M49.527 27.969h19.236v48.38H49.527z"></path><path transform="rotate(120 49.527 27.969)" fill="url(#a49_2)" d="M49.527 27.969h19.236v48.38H49.527z"></path><path fill="#D9D9D9" d="M38.377 42.96l-5.223 9.046L-.308 32.687l5.223-9.046z"></path><path transform="rotate(120 38.377 42.96)" fill="url(#a49_3)" d="M38.377 42.961h10.445V81.6H38.377z"></path><path transform="rotate(120 50.688 17.383)" fill="url(#a49_4)" d="M50.688 17.383h10.445v38.639H50.688z"></path></g><path d="M19 31l11.999-12" stroke="#fff" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"></path><path d="M21.25 22.5a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5zM28.75 32.11a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5z" stroke="#fff" stroke-width="2" stroke-miterlimit="10"></path><defs><linearGradient id="a49_1" x1="68.763" y1="76.348" x2="35.543" y2="63.14" gradientUnits="userSpaceOnUse"><stop stop-color="#556FF2"></stop><stop offset="1" stop-color="#00BFFF"></stop></linearGradient><linearGradient id="a49_2" x1="68.763" y1="76.348" x2="35.543" y2="63.14" gradientUnits="userSpaceOnUse"><stop stop-color="#5C26FF"></stop><stop offset="1" stop-color="#8C66FF"></stop></linearGradient><linearGradient id="a49_3" x1="48.822" y1="81.6" x2="29.354" y2="76.337" gradientUnits="userSpaceOnUse"><stop stop-color="#556FF2"></stop><stop offset="1" stop-color="#00BFFF"></stop></linearGradient><linearGradient id="a49_4" x1="61.133" y1="56.022" x2="41.665" y2="50.759" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9F1A"></stop><stop offset="1" stop-color="#FC3"></stop></linearGradient></defs></svg>
+        </div>
+        <span class="menu-tile-label">Staking</span>
+      </div>
+      <div class="menu-tile">
+        <div class="menu-tile-icon">
+          <svg width="38" height="38" fill="none" viewBox="0 0 38 38" data-testid="exodusmovement.exodus:id/nfts-icon"><circle cx="13.933" cy="13.933" r="13.933" fill="url(#a-a43)"></circle><path opacity="0.65" d="M15.2 38h17.59A5.21 5.21 0 0 0 38 32.79V15.2H15.2V38Z" fill="url(#b-a43)"></path><path d="m5.067 10.134 22.8 22.8h-22.8v-22.8Z" fill="url(#c-a43)"></path><defs><linearGradient id="a-a43" x1="27.867" y1="27.867" x2="0" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#5C26FF"></stop><stop offset="1" stop-color="#8C66FF"></stop></linearGradient><linearGradient id="b-a43" x1="38" y1="15.2" x2="15.2" y2="38" gradientUnits="userSpaceOnUse"><stop stop-color="#556FF2"></stop><stop offset="1" stop-color="#00BFFF"></stop></linearGradient><linearGradient id="c-a43" x1="11.033" y1="32.934" x2="22.92" y2="10.134" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9F19"></stop><stop offset="1" stop-color="#FC3"></stop></linearGradient></defs></svg>
+        </div>
+        <span class="menu-tile-label">NFTs</span>
+      </div>
+    </div>
+
+    <div class="menu-list">
+      <div class="menu-item">
+        <div class="menu-item-icon">
+          <svg  fill="none" viewBox="0 0 48 43" data-testid="exodusmovement.exodus:id/settings-icon"><path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="m40.765 32.53-10.617-6.035a6.98 6.98 0 0 1-1.122 1.43 7.178 7.178 0 0 1-5.024 2.041 7.13 7.13 0 0 1-6.148-3.47L7.237 32.532l1.685 2.862c.163.277.51.39.811.267l4.974-2.061a14.418 14.418 0 0 0 4.58 2.603l.667 5.242c.04.317.315.555.64.555h6.814c.326 0 .6-.238.64-.555l.67-5.242a14.428 14.428 0 0 0 4.576-2.604l4.975 2.061c.3.124.647.01.81-.267l1.686-2.862Z" fill="url(#a-a52)"></path><path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M30.148 26.494a6.862 6.862 0 0 0 .96-3.495c0-3.848-3.182-6.967-7.106-6.967H24V4h3.407c.326 0 .6.238.64.555l.67 5.242a14.436 14.436 0 0 1 4.576 2.605l4.974-2.06c.3-.125.648-.01.81.266l3.406 5.782a.625.625 0 0 1-.17.823l-4.296 3.19c.166.856.251 1.725.254 2.597-.001.87-.084 1.74-.249 2.596l4.294 3.191c.26.194.331.546.168.822l-1.72 2.921-10.617-6.036Z" fill="url(#b-a52)"></path><path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M24 16.032c-3.924 0-7.104 3.12-7.104 6.966 0 1.275.349 2.469.958 3.496L7.237 32.532l-1.72-2.922a.625.625 0 0 1 .169-.823l4.298-3.19a13.665 13.665 0 0 1 0-5.193l-4.298-3.188a.625.625 0 0 1-.17-.824l3.408-5.784a.652.652 0 0 1 .81-.267l4.975 2.06a14.428 14.428 0 0 1 4.577-2.603l.668-5.242A.642.642 0 0 1 20.596 4H24v12.032Z" fill="url(#c-a52)"></path><g filter="url(#d-a52)"><path fill-rule="evenodd" clip-rule="evenodd" d="m33.264 33.685 4.874 2.042a.642.642 0 0 0 .801-.278l3.406-5.898a.641.641 0 0 0-.16-.832l-4.206-3.2-6.114 1.915 1.399 6.25Z" fill="url(#e-a52)"></path></g><g filter="url(#f-a52)"><path fill-rule="evenodd" clip-rule="evenodd" d="m10.021 25.518-4.206 3.2a.641.641 0 0 0-.16.832L9.06 35.45c.163.282.506.4.8.277l4.876-2.042 1.398-6.251-6.114-1.915Z" fill="url(#g-a52)"></path></g><g filter="url(#h-a52)"><path fill-rule="evenodd" clip-rule="evenodd" d="m28.717 9.797-.669-5.242a.642.642 0 0 0-.64-.555h-6.813c-.325 0-.6.238-.64.555l-.67 5.242 4.716 4.336 4.716-4.336Z" fill="url(#i-a52)"></path></g><defs><filter id="d-a52" x="26.53" y="21.517" width="21.239" height="20.928" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1.334"></feOffset><feGaussianBlur stdDeviation="2.668"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1515_44904"></feBlend><feBlend in="SourceGraphic" in2="effect1_dropShadow_1515_44904" result="shape"></feBlend></filter><filter id="f-a52" x="0.231" y="21.516" width="21.239" height="20.928" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1.334"></feOffset><feGaussianBlur stdDeviation="2.668"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1515_44904"></feBlend><feBlend in="SourceGraphic" in2="effect1_dropShadow_1515_44904" result="shape"></feBlend></filter><filter id="h-a52" x="13.95" y="-0.001" width="20.102" height="20.804" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1.334"></feOffset><feGaussianBlur stdDeviation="2.668"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1515_44904"></feBlend><feBlend in="SourceGraphic" in2="effect1_dropShadow_1515_44904" result="shape"></feBlend></filter><linearGradient id="a-a52" x1="-13.512" y1="36.214" x2="1.422" y2="68.098" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.5"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.1"></stop></linearGradient><linearGradient id="b-a52" x1="12.508" y1="21.883" x2="45.045" y2="42.794" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.5"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.1"></stop></linearGradient><linearGradient id="c-a52" x1="-6.064" y1="21.884" x2="26.474" y2="42.794" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.5"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.1"></stop></linearGradient><linearGradient id="e-a52" x1="31.538" y1="38.133" x2="44.739" y2="34.081" gradientUnits="userSpaceOnUse"><stop stop-color="#556FF2"></stop><stop offset="1" stop-color="#00BFFF"></stop></linearGradient><linearGradient id="g-a52" x1="7.031" y1="21.8" x2="3.94" y2="35.256" gradientUnits="userSpaceOnUse"><stop stop-color="#5C26FF"></stop><stop offset="1" stop-color="#8C66FF"></stop></linearGradient><linearGradient id="i-a52" x1="33.432" y1="9.067" x2="23.326" y2="-0.34" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9F1A"></stop><stop offset="1" stop-color="#FC3"></stop></linearGradient></defs></svg>
+        </div>
+        <span class="menu-item-label">Settings</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-icon">
+          <svg  viewBox="0 0 38 38" fill="none" data-testid="exodusmovement.exodus:id/support-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.565 32.435c7.42 7.42 19.45 7.42 26.87 0 7.42-7.42 7.42-19.45 0-26.87-7.42-7.42-19.45-7.42-26.87 0-7.42 7.42-7.42 19.45 0 26.87Zm6.322-6.322c3.928 3.928 10.297 3.928 14.226 0 3.928-3.929 3.928-10.297 0-14.226-3.929-3.928-10.297-3.928-14.226 0-3.928 3.928-3.928 10.297 0 14.226Z" fill="url(#a-a53)" fill-opacity="0.5"></path><path opacity="0.5" d="m5.517 32.387.096.096a19.11 19.11 0 0 0 2.505 2.096l5.608-7.01a10.081 10.081 0 0 1-1.839-1.456 10.08 10.08 0 0 1-1.455-1.84l-7.01 5.61a19.113 19.113 0 0 0 2.095 2.504Z" fill="url(#b-a53)"></path><path d="m34.579 29.882-7.01-5.608a10.084 10.084 0 0 1-1.456 1.839 10.08 10.08 0 0 1-1.839 1.455l5.608 7.01c.881-.616 1.721-1.316 2.51-2.1l.086-.087a19.105 19.105 0 0 0 2.1-2.509Z" fill="url(#c-a53)"></path><path d="m3.42 8.118 7.012 5.609a10.084 10.084 0 0 1 3.294-3.294L8.117 3.422A19.114 19.114 0 0 0 5.6 5.53l-.07.069a19.114 19.114 0 0 0-2.11 2.518Z" fill="url(#d-a53)"></path><path d="m29.883 3.422-5.609 7.01c.654.404 1.272.889 1.839 1.456a10.086 10.086 0 0 1 1.455 1.839l7.011-5.609A19.105 19.105 0 0 0 32.47 5.6l-.069-.07a19.114 19.114 0 0 0-2.517-2.108Z" fill="url(#e-a53)"></path><defs><linearGradient id="a-a53" x1="45.87" y1="19" x2="19" y2="-7.87" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.5"></stop></linearGradient><linearGradient id="b-a53" x1="13.53" y1="34.063" x2="11.817" y2="23.504" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0.1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0.5"></stop></linearGradient><linearGradient id="c-a53" x1="33.92" y1="24.436" x2="23.209" y2="26.123" gradientUnits="userSpaceOnUse"><stop stop-color="#5C26FF"></stop><stop offset="1" stop-color="#8C66FF"></stop></linearGradient><linearGradient id="d-a53" x1="4.08" y1="13.565" x2="14.791" y2="11.878" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9F1A"></stop><stop offset="1" stop-color="#FC3"></stop></linearGradient><linearGradient id="e-a53" x1="33.92" y1="13.565" x2="32.234" y2="2.853" gradientUnits="userSpaceOnUse"><stop stop-color="#556FF2"></stop><stop offset="1" stop-color="#00BFFF"></stop></linearGradient></defs></svg>
+        </div>
+        <span class="menu-item-label">Support</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="8" width="28" height="20" rx="4" fill="#7c68ff"/><rect x="4" y="8" width="28" height="20" rx="4" fill="url(#cardGrad)"/><defs><linearGradient id="cardGrad" x1="4" y1="8" x2="32" y2="28"><stop stop-color="#f7c948"/><stop offset="1" stop-color="#9c5cff"/></linearGradient></defs><text x="10" y="24" fill="white" font-size="7" font-weight="600" opacity="0.7">*1234</text></svg></div>
+        <span class="menu-item-label">Exodus Spend Card</span>
+        <span class="menu-item-badge">NEW</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CARD ===== -->
+  <div class="card" id="card">
+    <!-- Drag handle -->
+    <div class="drag-handle"></div>
+
+    <!-- Rim light tracing the top edge + notch (behind the surface) -->
+    <div class="card-rim" id="cardRim"></div>
+
+    <div class="card-surface" id="cardSurface">
+    <div class="card-bg"></div>
+    <div class="card-glow" id="cardGlow"></div>
+    <div class="card-dim"></div>
+
+    <div class="card-body" id="cardBody">
+      <!-- Purple header zone -->
+      <div class="header">
+        <div class="header-waves"></div>
+
+        <div class="header-top">
+          <div class="h-logo" tabindex="0" data-testid="exodusmovement.exodus:id/portfolio-switch">
+            <svg width="22" height="22" viewBox="0 0 40 40"><g fill="#FFF" fill-rule="evenodd"><path d="M10.12 15.584L18.637 10v3.122l-5.464 3.55.643 2.034h4.82v2.588h-4.82l-.643 2.033 5.464 3.55V30l-8.517-5.567 1.393-4.424-1.393-4.425zM26.047 21.294h-4.803v-2.588h4.82l.625-2.033-5.445-3.55V10l8.517 5.584-1.393 4.425 1.393 4.424L21.226 30v-3.122l5.463-3.55-.642-2.034z"></path></g></svg>
+          </div>
+          <div class="h-actions">
+            <div class="h-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+            <div class="h-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 3 3 9 9 9"/><path d="M12 7v5l3 3"/></svg></div>
+          </div>
+        </div>
+
+        <div class="donut-area">
+          <div class="donut-wrap">
+            <svg class="donut-svg" viewBox="0 0 270 270" id="donut">
+              <g id="donutSegs" transform="rotate(-90 135 135)"></g>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-total" id="total"><span class="dt-sub">$</span>0<span class="dt-sub">.00</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grey asset zone -->
+      <div class="assets-zone" id="assetList"></div>
+    </div>
+    </div><!-- /card-surface -->
+
+    <!-- Dot nested in the notch -->
+    <div class="card-dot" id="cardDot"></div>
+
+    <!-- Floating bottom nav -->
+    <div class="bot-nav" id="botNav">
+      <div class="nav-pill">
+        <button class="n-btn w">
+          <svg width="24" height="22" fill="none" viewBox="0 0 24 22" data-testid="exodusmovement.exodus:id/tab-wallet" style="margin-bottom: 0px; opacity: 1; transition: 0.2s;"><mask id="a12-a" width="22" height="18" x="0" y="4" maskUnits="userSpaceOnUse" style="mask-type: alpha;"><path fill="#fff" fill-rule="evenodd" d="M20 4H0v16a2 2 0 002 2h18a2 2 0 002-2V6a2 2 0 00-2-2zm-3 7a2 2 0 100 4 2 2 0 000-4z" clip-rule="evenodd"></path></mask><g fill="#fff" mask="url(#a12-a)"><path fill="url(#a12-b)" d="M-14.5 6.404H-5.5V46.403999999999996H-14.5z" opacity="1" transform="rotate(-45 -14.5 6.404)"></path><path fill="url(#a12-c)" d="M-8.136 0.04H0.8640000000000008V40.04H-8.136z" opacity="1" transform="rotate(-45 -8.136 .04)"></path><path fill="url(#a12-d)" d="M-1.772 -6.324H7.228V33.676H-1.772z" transform="rotate(-45 -1.772 -6.324)"></path></g><circle cx="17" cy="13" r="2" fill="#FFFFFF"></circle><path fill="#BDBDBC" d="M0 2a2 2 0 012-2h16v4H0V2z" opacity="1"></path><defs><linearGradient id="a12-b" x1="-5.5" x2="-22.633" y1="46.404" y2="42.549" gradientUnits="userSpaceOnUse"><stop stop-color="#6E50EE"></stop><stop offset="1" stop-color="#6E50EE"></stop></linearGradient><linearGradient id="a12-c" x1="0.864" x2="-16.268" y1="40.04" y2="36.185" gradientUnits="userSpaceOnUse"><stop stop-color="#6E50EE"></stop><stop offset="1" stop-color="#6E50EE"></stop></linearGradient><linearGradient id="a12-d" x1="7.228" x2="-9.905" y1="33.676" y2="29.821" gradientUnits="userSpaceOnUse"><stop stop-color="#6E50EE"></stop><stop offset="1" stop-color="#6E50EE"></stop></linearGradient></defs></svg>
+        </button>
+        <button class="n-btn s">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" data-testid="exodusmovement.exodus:id/exchange" style="opacity: 0.6; transition: 0.2s;"><path fill="#fff" d="M16.82 0L24 6l-7.18 6V8H5a1 1 0 01-1-1V5a1 1 0 011-1h11.82V0z"></path><path fill="#fff" d="M7.208 24L0 18l7.208-6v4H19a1 1 0 011 1v2a1 1 0 01-1 1H7.208v4z" opacity="0.5"></path></svg>
+        </button>
+        <button class="n-btn d">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" style="background-color: #FFFFFF;border-radius:50%">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 6C12.75 5.58579 12.4142 5.25 12 5.25C11.5858 5.25 11.25 5.58579 11.25 6V6.31673C9.61957 6.60867 8.25 7.83361 8.25 9.5C8.25 11.4172 10.0628 12.75 12 12.75C13.3765 12.75 14.25 13.6557 14.25 14.5C14.25 15.3443 13.3765 16.25 12 16.25C10.6235 16.25 9.75 15.3443 9.75 14.5C9.75 14.0858 9.41421 13.75 9 13.75C8.58579 13.75 8.25 14.0858 8.25 14.5C8.25 16.1664 9.61957 17.3913 11.25 17.6833V18C11.25 18.4142 11.5858 18.75 12 18.75C12.4142 18.75 12.75 18.4142 12.75 18V17.6833C14.3804 17.3913 15.75 16.1664 15.75 14.5C15.75 12.5828 13.9372 11.25 12 11.25C10.6235 11.25 9.75 10.3443 9.75 9.5C9.75 8.65573 10.6235 7.75 12 7.75C13.3765 7.75 14.25 8.65573 14.25 9.5C14.25 9.91421 14.5858 10.25 15 10.25C15.4142 10.25 15.75 9.91421 15.75 9.5C15.75 7.83361 14.3804 6.60867 12.75 6.31673V6Z" fill="#8B8B8B"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/xproj.js"></script>
+</body>
+</html>
