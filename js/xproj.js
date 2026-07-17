@@ -24,14 +24,18 @@ function hex(id) {
   return `<div class="a-icon"><svg class="hex" width="46" height="46" viewBox="0 0 46 52" fill="none"><path d="M23 2L43 13V39L23 50L3 39V13L23 2Z" /></svg><div class="inner">${icons[id]||''}</div></div>`;
 }
 
-let pd = {};
+// Hardcoded prices for now — no network call so nothing can come back undefined.
+let pd = {
+  solana:{usd:91.96,usd_24h_change:5.2},
+  bitcoin:{usd:71424.99,usd_24h_change:3.8},
+  ethereum:{usd:2179.68,usd_24h_change:4.8},
+  tether:{usd:0.9998,usd_24h_change:0.01},
+  'usd-coin':{usd:1.00,usd_24h_change:0.0},
+  binancecoin:{usd:639.64,usd_24h_change:1.7},
+  'matic-network':{usd:0.42,usd_24h_change:2.4},
+  cardano:{usd:0.61,usd_24h_change:1.9}
+};
 async function fetchPrices() {
-  try {
-    const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${holdings.map(h=>h.id).join(',')}&vs_currencies=usd&include_24hr_change=true`);
-    pd = await r.json();
-  } catch(e) {
-    pd = { solana:{usd:91.96,usd_24h_change:5.2}, bitcoin:{usd:71424.99,usd_24h_change:3.8}, ethereum:{usd:2179.68,usd_24h_change:4.8}, tether:{usd:0.9998,usd_24h_change:0.01}, ripple:{usd:1.45,usd_24h_change:3.8}, 'usd-coin':{usd:1.00,usd_24h_change:0.0}, binancecoin:{usd:639.64,usd_24h_change:1.7}, dogecoin:{usd:0.18,usd_24h_change:2.1}, 'matic-network':{usd:0.42,usd_24h_change:2.4}, cardano:{usd:0.61,usd_24h_change:1.9} };
-  }
   render();
 }
 
@@ -39,8 +43,9 @@ function render() {
   let tot = 0;
   const rows = holdings.map(h => {
     const p = pd[h.id] || {usd:0,usd_24h_change:0};
-    const v = h.amt * p.usd; tot += v;
-    return {...h, price:p.usd, chg:p.usd_24h_change||0, val:v};
+    const price = p.usd || 0;
+    const v = h.amt * price; tot += v;
+    return {...h, price, chg:p.usd_24h_change||0, val:v};
   });
   const [whole, cents] = tot.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).split('.');
   document.getElementById('total').innerHTML =

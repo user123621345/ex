@@ -14,13 +14,13 @@
     position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     z-index: 1; background: linear-gradient(180deg, #131425 0%, #1F1F33 100%);
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    padding: 16px 20px 120px;
+    padding: 14px 20px 120px;
     display: flex; flex-direction: column; align-items: center;
   }
   .menu::-webkit-scrollbar { display: none; }
 
   .menu-logo {
-    width: 68px; height: 68px; background: #fff; border-radius: 50%;
+    width: 70px; height: 70px; background: #fff; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0;
   }
   .menu-logo svg { width: 36px; height: 36px; }
@@ -37,24 +37,27 @@
   }
   .menu-tile {
     background: #282A3E; border-radius: 18px;
-    padding: 20px 16px; display: flex; flex-direction: column;
+    padding: 18px 16px; display: flex; flex-direction: column;
     align-items: center; gap: 10px; cursor: pointer; transition: transform 0.12s;
   }
   .menu-tile:active { transform: scale(0.97); }
   .menu-tile-icon { width: 42px; height: 42px; }
   .menu-tile-label { font-size: 15px; font-weight: 600; }
 
-  .menu-list { width: 100%; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+  .exodus-pay {
+    background-color: #3CC02A; height: 26px; width: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  }
+  .menu-list { width: 100%; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
   .menu-item {
     background: #282A3E; border-radius: 18px;
-    padding: 14px; display: flex; align-items: center; gap: 14px;
+    padding: 16px 14px; display: flex; align-items: center; gap: 14px;
     cursor: pointer; transition: transform 0.12s;
   }
   .menu-item:active { transform: scale(0.98); }
-  .menu-item-icon { width: 32px; height: 32px; flex-shrink: 0; }
+  .menu-item-icon { width: 32px; height: 32px; flex-shrink: 0; display:flex; align-items:center; justify-content:center; }
   .menu-item-label { font-size: 16px; font-weight: 600; flex: 1; }
   .menu-item-badge {
-    background: #9c5cff; color: #fff; font-size: 11px; font-weight: 700;
+    background: #9c5cff; color: #fff; font-size: 11px; font-weight: 600;
     padding: 4px 10px; border-radius: 20px;
   }
 
@@ -142,34 +145,156 @@
     position: relative; z-index: 1;
     -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
     background: transparent;
-    border-radius: 26px 26px 0 0;
+    border-radius: 30px 30px 0 0;
     /* Bright lilac rim hugging the rounded top corners */
     box-shadow: inset 0 2px 0 rgba(234,220,255,0.9);
   }
   .card-body::-webkit-scrollbar { display: none; }
 
   .card-glow {
+    /* Confine the ray blend to this layer and clip beams to the card */
+    isolation: isolate;
+    overflow: hidden;
+    /* The top half of the card is a BRIGHT violet→blue fill (not dark!) that
+       fades to flat #202034 at the asset rows. A SMALL lighter-lavender rim
+       hugs the top edge + corners + a thin strip down the upper sides — that
+       is the "aura around the border", kept thin, not big side blobs. */
     background:
-  radial-gradient(
-    760px 640px at 2% -12%,
-    rgba(203, 173, 255, 0.82) 0%,
-    rgba(154, 112, 250, 0.45) 24%,
-    rgba(100, 72, 196, 0.17) 50%,
-    transparent 72%
-  ),
-  radial-gradient(
-    700px 470px at 62% -6%,
-    rgba(122, 84, 226, 0.34) 0%,
-    transparent 58%
-  ),
-  linear-gradient(
-    180deg,
-    #37267f 0%,
-    #2c2065 20%,
-    #24204a 35%,
-    #202034 50%,
-    #202034 100%
-  );
+      /* thin lighter rim along the very TOP edge */
+      radial-gradient(90% 13% at 50% 0%,
+        rgba(224, 212, 255, 0.62) 0%,
+        rgba(170, 140, 250, 0.26) 46%,
+        transparent 82%),
+      /* small lavender bloom in the top-LEFT corner */
+      radial-gradient(24% 20% at 1% 2%,
+        rgba(212, 198, 255, 0.55) 0%,
+        rgba(168, 138, 250, 0.18) 52%,
+        transparent 78%),
+      /* small lavender bloom in the top-RIGHT corner */
+      radial-gradient(24% 20% at 99% 2%,
+        rgba(212, 198, 255, 0.55) 0%,
+        rgba(168, 138, 250, 0.18) 52%,
+        transparent 78%),
+      /* THIN lighter rim down the upper-LEFT edge */
+      radial-gradient(7% 30% at 0% 12%,
+        rgba(206, 190, 255, 0.5) 0%,
+        transparent 76%),
+      /* THIN lighter rim down the upper-RIGHT edge */
+      radial-gradient(7% 30% at 100% 12%,
+        rgba(206, 190, 255, 0.5) 0%,
+        transparent 76%),
+      /* gentle deeper pool behind the donut so the ring reads (still blue) */
+      radial-gradient(60% 42% at 50% 33%,
+        rgba(38, 28, 104, 0.30) 0%,
+        transparent 74%),
+      /* BRIGHT violet → blue → dark vertical fill for the whole top zone */
+      linear-gradient(180deg,
+        #7154e8 0%,
+        #6248dd 11%,
+        #5541d0 22%,
+        #4838c1 33%,
+        #3c31a4 44%,
+        #2f2778 52%,
+        #262149 60%,
+        #202034 70%,
+        #202034 100%);
+  }
+
+  /* ===== Volumetric light rays =====
+     Each ray is its own conic-gradient shaft anchored at the top-left corner
+     (transform-origin 0 0). Heavy blur turns the bands into hazy shafts; the
+     radial mask makes them brightest at the source and dissolve with distance;
+     screen blend adds them as coloured light over the dark base. Every layer
+     drifts on its own slow, desynced rotate/scale loop so the light appears to
+     move at random. Colours (violet / blue / lilac) are what tint the card. */
+  .ray {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform-origin: 0 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    will-change: transform;
+    -webkit-mask-image: radial-gradient(104% 44% at 0 0,
+        #000 0%, rgba(0,0,0,0.5) 40%, transparent 82%);
+            mask-image: radial-gradient(104% 44% at 0 0,
+        #000 0%, rgba(0,0,0,0.5) 40%, transparent 82%);
+  }
+
+  /* Wide + long bright-purple beam — the main body of colour (#6f42e8) */
+  .ray1 {
+    filter: blur(16px);
+    background: conic-gradient(from 86deg at 0 0,
+      transparent            0deg,
+      rgba(130, 88,250, 0)   3deg,
+      rgba(150,108,255,0.26) 15deg,
+      rgba(130, 88,250, 0)   30deg,
+      transparent            360deg);
+    -webkit-mask-image: radial-gradient(112% 50% at 0 0,
+        #000 0%, rgba(0,0,0,0.5) 44%, transparent 90%);
+            mask-image: radial-gradient(112% 50% at 0 0,
+        #000 0%, rgba(0,0,0,0.5) 44%, transparent 90%);
+    animation: ray-a 30s ease-in-out infinite alternate;
+  }
+  /* Thin lighter-purple beam (#966cfa) + a darker one (#5834be), shorter */
+  .ray2 {
+    filter: blur(9px);
+    background: conic-gradient(from 88deg at 0 0,
+      transparent            0deg,
+      rgba(150,108,252, 0)   24deg,
+      rgba(168,128,255,0.32) 29deg,
+      rgba(150,108,252, 0)   34deg,
+      transparent            45deg,
+      rgba( 92, 56,204, 0)   51deg,
+      rgba(120, 84,236,0.22) 57deg,
+      rgba( 92, 56,204, 0)   64deg,
+      transparent            360deg);
+    animation: ray-b 40s ease-in-out infinite alternate;
+  }
+  /* Big soft WIDE mid-purple wash (#5f38d4), the longest reach */
+  .ray3 {
+    filter: blur(26px);
+    background: conic-gradient(from 82deg at 0 0,
+      transparent            0deg,
+      rgba(118, 76,238, 0)   34deg,
+      rgba(128, 84,244,0.16) 60deg,
+      rgba(118, 76,238, 0)   88deg,
+      transparent            360deg);
+    -webkit-mask-image: radial-gradient(128% 56% at 0 0,
+        #000 0%, rgba(0,0,0,0.55) 46%, transparent 96%);
+            mask-image: radial-gradient(128% 56% at 0 0,
+        #000 0%, rgba(0,0,0,0.55) 46%, transparent 96%);
+    animation: ray-c 46s ease-in-out infinite alternate;
+  }
+  /* Thin bright lighter-purple highlight near the top edge (#a580ff) */
+  .ray4 {
+    filter: blur(6px);
+    background: conic-gradient(from 88deg at 0 0,
+      transparent            0deg,
+      rgba(184,152,255, 0)   4deg,
+      rgba(198,170,255,0.44) 9deg,
+      rgba(184,152,255, 0)   15deg,
+      transparent            360deg);
+    animation: ray-d 34s ease-in-out infinite alternate;
+  }
+
+  @keyframes ray-a {
+    0%   { transform: rotate(-5deg) scale(1.02); }
+    100% { transform: rotate( 6deg) scale(1.12); }
+  }
+  @keyframes ray-b {
+    0%   { transform: rotate( 5deg) scale(1.08); }
+    100% { transform: rotate(-7deg) scale(1.00); }
+  }
+  @keyframes ray-c {
+    0%   { transform: rotate(-3deg) scale(1.10); }
+    100% { transform: rotate( 5deg) scale(1.00); }
+  }
+  @keyframes ray-d {
+    0%   { transform: rotate( 3deg) scale(1.00); }
+    100% { transform: rotate(-4deg) scale(1.07); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ray { animation: none !important; }
   }
 
   /* Header purple zone — the ONLY place with light + aura */
@@ -183,7 +308,7 @@
   .header-top {
     position: relative; z-index: 2;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 18px 18px 0;
+    padding: 19px 17px 0;
   }
   .h-logo {
     width: 40px; height: 40px; border-radius: 50%;
@@ -228,7 +353,7 @@
   .donut-svg { position: relative; z-index: 1; width: 100%; height: 100%;
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.28)); }
   .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-  .donut-total { font-size: 52px; font-weight: 600; letter-spacing: -0.5px; }
+  .donut-total { font-size: 54px; font-weight: 600; letter-spacing: -0.5px; }
   /* Dollar sign and cents: smaller and grey, main amount untouched */
   .donut-total .dt-sub { font-size: 18px; color: #8B8B96; }
   .donut-total .dt-sub:first-child { margin-right: 3px; }
@@ -260,7 +385,12 @@
   /* Hex icons */
   .a-icon { width: 46px; height: 46px; margin-right: 13px; flex-shrink: 0; position: relative; display: flex; align-items: center; justify-content: center; }
   .a-icon .hex { position: absolute; top: 0; left: 0; }
-  .a-icon .inner { position: relative; z-index: 1; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+  .a-icon .inner {
+    position: relative; z-index: 1; width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    filter: drop-shadow(1px -0.2px 2px rgba(255, 255, 255, 0.164))
+            drop-shadow(2px 0 2px rgba(255, 255, 255, 0.155));
+  }
 
   .a-info { flex: 1; min-width: 0; }
   .a-name-row { display: flex; align-items: center; gap: 6px; }
@@ -312,7 +442,7 @@
       radial-gradient(60px 34px at 17% 104%, rgba(110,80,238,0.42) 0%, rgba(110,80,238,0.16) 45%, rgba(110,80,238,0) 75%);
   }
   .n-btn {
-    width: 76px; height: 58px; border-radius: 50%; border: none;
+    width: 78px; height: 58px; border-radius: 50%; border: none;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; position: relative; transition: transform 0.1s;
     background: transparent;
