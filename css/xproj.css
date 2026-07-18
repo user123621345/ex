@@ -16,8 +16,15 @@
     overflow-y: auto; -webkit-overflow-scrolling: touch;
     padding: 14px 20px 120px;
     display: flex; flex-direction: column; align-items: center;
+    will-change: transform;
   }
   .menu::-webkit-scrollbar { display: none; }
+  /* Menu glides opposite to the card. During a live drag its transform is set
+     inline with no transition (tracks the finger); on release the card gets
+     .animating and the menu eases into place in sync with it. */
+  .app:has(.card.animating) .menu {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
 
   .menu-logo {
     width: 70px; height: 70px; background: #fff; border-radius: 50%;
@@ -45,7 +52,8 @@
   .menu-tile-label { font-size: 15px; font-weight: 600; }
 
   .exodus-pay {
-    background-color: #3CC02A; height: 26px; width: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background-color: #3CC02A; height: 24px; width: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 2px #282A3E, 0 0 0 5px #2F4F3B;
   }
   .menu-list { width: 100%; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
   .menu-item {
@@ -57,7 +65,7 @@
   .menu-item-icon { width: 32px; height: 32px; flex-shrink: 0; display:flex; align-items:center; justify-content:center; }
   .menu-item-label { font-size: 16px; font-weight: 600; flex: 1; }
   .menu-item-badge {
-    background: #9c5cff; color: #fff; font-size: 11px; font-weight: 600;
+    background: #8359FF; color: #fff; font-size: 11px; font-weight: 600;
     padding: 4px 10px; border-radius: 20px;
   }
 
@@ -195,47 +203,72 @@
     filter: blur(18px);
     background: conic-gradient(from 0deg at 50% 50%,
       transparent                 0deg,
-      transparent                86deg,
+      transparent                85deg,
       /* along the top edge: bright */
-      rgba(124,  92, 252, 0.55)  88deg,
-      rgba(118,  86, 250, 0.55)  92deg,
+      rgba(124,  92, 252, 0.55)  87deg,
+      rgba(118,  86, 250, 0.55)  90deg,
       /* thin dark streak just under the top edge */
-      rgba( 22,  16,  54, 0.42)  95deg,
-      /* WIDE bright beam sweeping across the upper area */
-      rgba(126,  94, 255, 0.50)  98deg,
-      rgba(120,  88, 250, 0.48) 103deg,
+      rgba( 22,  16,  54, 0.42)  92deg,
+      /* extra bright ray near the top edge */
+      rgba(128,  96, 255, 0.52)  93.5deg,
+      rgba(122,  90, 252, 0.50)  96deg,
       /* thin dark streak */
-      rgba( 20,  15,  52, 0.45) 106deg,
+      rgba( 20,  15,  52, 0.44)  97.5deg,
+      /* WIDE bright beam sweeping across the upper area */
+      rgba(126,  94, 255, 0.50)  99deg,
+      rgba(120,  88, 250, 0.48) 102deg,
+      /* thin dark streak */
+      rgba( 20,  15,  52, 0.45) 104deg,
       /* extra slim bright ray */
-      rgba(122,  90, 252, 0.46) 109deg,
-      rgba(114,  84, 247, 0.42) 112deg,
+      rgba(122,  90, 252, 0.46) 105.5deg,
+      rgba(114,  84, 247, 0.42) 108deg,
+      /* thin dark streak */
+      rgba( 20,  15,  52, 0.42) 109.5deg,
+      /* another slim bright ray */
+      rgba(120,  88, 250, 0.44) 111deg,
+      rgba(112,  82, 246, 0.40) 113deg,
       /* thin dark streak */
       rgba( 20,  15,  52, 0.40) 114.5deg,
       /* medium bright beam */
-      rgba(110,  80, 244, 0.42) 117deg,
-      rgba(100,  72, 235, 0.36) 121deg,
+      rgba(110,  80, 244, 0.42) 116deg,
+      rgba(100,  72, 235, 0.36) 119deg,
+      /* thin dark streak */
+      rgba( 19,  14,  50, 0.42) 120.5deg,
+      /* extra bright ray before the wedge */
+      rgba(108,  78, 242, 0.40) 122deg,
+      rgba(102,  74, 236, 0.34) 123.5deg,
       /* extra dark sliver before the wedge */
-      rgba( 19,  14,  50, 0.44) 123.5deg,
+      rgba( 19,  14,  50, 0.44) 124.5deg,
       /* narrow bright ray riding the wedge edge */
-      rgba(108,  78, 240, 0.34) 125deg,
+      rgba(108,  78, 240, 0.34) 126deg,
       /* THE BIG DARK WEDGE — wide diagonal shadow toward the middle-left */
       rgba( 18,  14,  48, 0.50) 128deg,
-      rgba( 16,  12,  44, 0.55) 137deg,
+      rgba( 16,  12,  44, 0.55) 136deg,
       /* faint recovery beam inside the dark zone */
-      rgba( 92,  66, 222, 0.24) 142deg,
+      rgba( 92,  66, 222, 0.24) 140deg,
       /* dark streak splitting the recovery zone into two rays */
-      rgba( 18,  14,  46, 0.42) 146deg,
+      rgba( 18,  14,  46, 0.42) 143deg,
+      rgba( 90,  64, 220, 0.24) 145deg,
+      /* dark streak */
+      rgba( 18,  14,  46, 0.40) 147deg,
+      /* another recovery ray */
       rgba( 88,  62, 218, 0.22) 149deg,
       /* long soft haze falling down the left side */
-      rgba( 70,  50, 190, 0.16) 155deg,
+      rgba( 70,  50, 190, 0.16) 152deg,
       /* extra ray in the lower fan */
-      rgba( 82,  60, 206, 0.20) 160deg,
-      rgba( 30,  22,  80, 0.28) 164deg,
+      rgba( 84,  62, 208, 0.22) 155deg,
+      rgba( 30,  22,  80, 0.28) 158deg,
+      /* another slim ray in the lower fan */
+      rgba( 86,  64, 210, 0.22) 160deg,
+      rgba( 28,  20,  72, 0.26) 163deg,
       /* another slim ray near the left edge */
-      rgba( 84,  62, 208, 0.20) 168deg,
-      rgba( 28,  20,  72, 0.26) 172deg,
+      rgba( 84,  62, 208, 0.20) 165.5deg,
+      rgba( 28,  20,  72, 0.26) 168deg,
+      /* extra slim ray near the left edge */
+      rgba( 84,  62, 208, 0.20) 170deg,
+      rgba( 28,  20,  72, 0.24) 172.5deg,
       /* near the left edge: lifted slightly by the aura */
-      rgba( 82,  62, 208, 0.18) 176deg,
+      rgba( 82,  62, 208, 0.18) 175deg,
       rgba( 80,  60, 205, 0.14) 180deg,
       transparent               182deg,
       transparent               360deg);
@@ -350,9 +383,9 @@
   .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
   .donut-total { font-size: 54px; font-weight: 600; letter-spacing: -0.5px; }
   /* Dollar sign and cents: smaller and grey, main amount untouched */
-  .donut-total .dt-sub { font-size: 18px; color: #8B8B96; }
-  .donut-total .dt-sub:first-child { margin-right: 3px; }
-  .donut-total .dt-sub:last-child { margin-left: 3px; }
+  .donut-total .dt-sub { font-size: 18px; color: #ffffff70; }
+  .donut-total .dt-sub:first-child { margin-right: 5px; }
+  .donut-total .dt-sub:last-child { margin-left: 4px; }
 
   /* Asset rows area - grey background */
   .assets-zone {
@@ -376,6 +409,25 @@
     transition: transform 0.12s, background 0.12s;
   }
   .asset-row:active { transform: scale(0.99); background: linear-gradient(180deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.04) 100%); }
+
+  /* Centered glass pill to add more assets */
+  .add-more {
+    display: block; margin: 14px auto 0;
+    padding: 10px 22px;
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    color: #fff; letter-spacing: 0.2px;
+    /* Glass panel, mainly #333348 */
+    background: linear-gradient(180deg, rgba(51, 51, 72, 0.88) 0%, rgba(51, 51, 72, 0.96) 100%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 999px; cursor: pointer;
+    box-shadow:
+      inset 0 1px 0.5px rgba(255,255,255,0.14),
+      0 8px 22px rgba(0, 0, 0, 0.063);
+    transition: transform 0.12s, background 0.12s;
+  }
+  .add-more:active { transform: scale(0.97); background: linear-gradient(180deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.04) 100%); }
 
   /* Hex icons */
   .a-icon { width: 46px; height: 46px; margin-right: 13px; flex-shrink: 0; position: relative; display: flex; align-items: center; justify-content: center; }

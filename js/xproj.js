@@ -55,13 +55,15 @@ function render() {
 
   document.getElementById('assetList').innerHTML = rows.map(a => {
     const n=a.chg<0, s=n?'':'+';
+    // Hide the change chip entirely when it rounds to 0.0% — nothing useful to show.
+    const chg = Math.abs(a.chg).toFixed(1)==='0.0' ? '' : `<span class="a-chg${n?' neg':''}">${s}${a.chg.toFixed(1)}%</span>`;
     const ps = a.price>=1000?'$'+a.price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'$'+a.price.toFixed(a.price<1?4:2);
     // Zero balance: amount is just the ticker, and no USD value at all.
     const vals = a.amt<=0
       ? `<div class="a-amt" style="color:${a.amtCol}">${a.sym}</div>`
       : `<div class="a-amt" style="color:${a.amtCol}">${a.amt} ${a.sym}</div><div class="a-usd">$${a.val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`;
-    return `<div class="asset-row">${hex(a.id)}<div class="a-info"><div class="a-name-row"><span class="a-name">${a.name}</span>${a.badge?'<span class="a-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M9 7C9 8.10457 8.10457 9 7 9C5.89543 9 5 8.10457 5 7C5 5.89543 5.89543 5 7 5C8.10457 5 9 5.89543 9 7ZM19 17C19 18.1046 18.1046 19 17 19C15.8954 19 15 18.1046 15 17C15 15.8954 15.8954 15 17 15C18.1046 15 19 15.8954 19 17Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>':''}</div><div><span class="a-price">${ps}</span><span class="a-chg${n?' neg':''}">${s}${a.chg.toFixed(1)}%</span></div></div><div class="a-vals">${vals}</div></div>`;
-  }).join('');
+    return `<div class="asset-row">${hex(a.id)}<div class="a-info"><div class="a-name-row"><span class="a-name">${a.name}</span>${a.badge?'<span class="a-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M9 7C9 8.10457 8.10457 9 7 9C5.89543 9 5 8.10457 5 7C5 5.89543 5.89543 5 7 5C8.10457 5 9 5.89543 9 7ZM19 17C19 18.1046 18.1046 19 17 19C15.8954 19 15 18.1046 15 17C15 15.8954 15.8954 15 17 15C18.1046 15 19 15.8954 19 17Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>':''}</div><div><span class="a-price">${ps}</span>${chg}</div></div><div class="a-vals">${vals}</div></div>`;
+  }).join('') + '<button class="add-more" type="button">Add more</button>';
 }
 
 // Scale the total down so a large amount still fits inside the donut ring.
@@ -81,7 +83,7 @@ function drawDonut(rows, tot) {
   const active = rows.filter(a=>a.val>0);
   const multi = active.length>1;
   const cap = multi ? 'round' : 'butt';
-  const gap=(3/360)*circ, usable=circ-gap*active.length;
+  const gap=(2/360)*circ, usable=circ-gap*active.length;
   let off=gap/2;
   active.forEach(a => {
     let dl=(a.val/tot)*usable; if(dl<=0) return;
@@ -147,8 +149,11 @@ const card=document.getElementById('card');
 const surface=document.getElementById('cardSurface');
 const rim=document.getElementById('cardRim');
 const dot=document.getElementById('cardDot');
+const menu=document.querySelector('.menu');
 let sY=0,cY=0,drag=false,open=false;
-const TH=80,OP=700;
+// MS = how far the menu is pushed down while the card is closed; it glides
+// back up to its resting position (0) as the card is pulled fully open.
+const TH=80,OP=700,MS=90;
 
 // ===== CARD SILHOUETTE =====
 // Top edge of the card: rounded corners plus a notch that dips inward as the
@@ -174,6 +179,9 @@ function setPos(t){
   card.style.transform=`translateY(${t}px)`;
   card.style.setProperty('--p',p);
   card.style.setProperty('--np',np);
+  // Menu slides opposite to the card: down when closed, snapping to its
+  // resting position (0) as the card reaches full open.
+  menu.style.transform=`translateY(${(MS*(1-p)).toFixed(2)}px)`;
   const clip=silhouette(np);
   surface.style.clipPath=clip;
   rim.style.clipPath=clip;
@@ -212,7 +220,6 @@ cb.addEventListener('touchend',()=>{
 // When the card is slid down (open), the menu behind it is revealed. A swipe
 // up starting anywhere on the menu pulls the card back up, same as dragging
 // the card body itself.
-const menu=document.querySelector('.menu');
 menu.addEventListener('touchstart',e=>{
   if(!open) return;
   sY=e.touches[0].clientY;cY=sY;drag=false;card.classList.remove('animating');
@@ -277,7 +284,7 @@ setInterval(fetchPrices,30000);
   if(!fanA || !fanB) return;
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const SPEED = 1.6, SWEEP_A = 7.0, SWEEP_B = 10.0, SWEEP_C = 14.0;
+  const SPEED = 3.4, SWEEP_A = 7.0, SWEEP_B = 10.0, SWEEP_C = 14.0;
   const start = performance.now();
 
   function tick(now){
